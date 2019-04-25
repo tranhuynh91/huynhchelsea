@@ -155,5 +155,14 @@ Route::get('ke_khai_dich_vu_luu_tru/report_ke_khai/{mahs}','ReportsController@kk
     //End Dịch vụ lưu trú
 // </editor-fold>//End Manage
 
+//Tiếp dân
 
+Route::resource('tiepdan','TiepDanController@index');
+Route::get('tiepdan/create','TiepDanController@create');
+Route::post('tiepdan/store','TiepDanController@store');
+Route::get('tiepdan/{id}/store','TiepDanController@edit');
+Route::patch('tiepdan/{id}/update','TiepDanController@update');
+Route::post('tiepdan/delete','TiepDanController@destroy');
 
+//vụ việc
+Route::resource('vuviec','VuviecController@index');

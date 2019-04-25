@@ -16,13 +16,14 @@ class CreateHoidonghoagiaiTable extends Migration
         Schema::create('hoidonghoagiai', function (Blueprint $table) {
             $table->string('id');
             $table->date('ngaythangtlhdhg')->nullable();
-            $table->string('chitichhdhg')->nullable();
+            $table->string('chutichhdhg')->nullable();
             $table->string('chucvuhdhg')->nullable();
             $table->string('diachihdhg')->nullable();
             $table->string('thanhvienhdhg')->nullable();
             $table->string('chucvutvhdhg')->nullable();
             $table->string('donvitvhdhg')->nullable();
             $table->string('hoagiailan2')->nullable();
+            $table->timestamps();
         });
     }
 

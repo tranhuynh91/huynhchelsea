@@ -290,6 +290,19 @@ License: You must have a valid license purchased only from themeforest(the above
                         <span class="selected"></span>
                     </a>
                 </li>
+                <li>
+                    <a href="">
+                        <i class="icon-settings"></i>
+                        <span class="title">Tiếp dân</span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="{{url('tiepdan')}}"> Thông tin tiếp dân</a></li>
+                        <li><a href="{{url('')}}"> Quản lý tài khoản</a></li>
+                        <li><a href="{{url('')}}">Phòng ban giải quyết</a></li>
+                    </ul>
+
+                </li>
                 @if(session('admin')->sadmin == 'ssa' || session('admin')->sadmin == 'ssa')
                 <li>
                     <a href="">
