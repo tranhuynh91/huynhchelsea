@@ -6,13 +6,15 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateDistrictsTable' => $baseDir . '/database/migrations/2019_05_02_082645_create_Districts_table.php',
     'CreateDmphanloaivvTable' => $baseDir . '/database/migrations/2019_04_25_140932_create_dmphanloaivv_table.php',
     'CreateDmphongbanTable' => $baseDir . '/database/migrations/2019_04_25_140808_create_dmphongban_table.php',
     'CreateDscanboTable' => $baseDir . '/database/migrations/2019_04_25_140914_create_dscanbo_table.php',
     'CreateGeneralConfigsTable' => $baseDir . '/database/migrations/2016_10_14_022915_create_general-configs_table.php',
-    'CreateHoagiaiTable' => $baseDir . '/database/migrations/2019_04_25_140836_create_hoagiai_table.php',
+    'CreateHoagiaiTable' => $baseDir . '/database/migrations/2019_05_02_084459_create_hoagiai_table.php',
     'CreateHoidonghoagiaiTable' => $baseDir . '/database/migrations/2019_04_25_140850_create_hoidonghoagiai_table.php',
-    'CreateTiepdanTable' => $baseDir . '/database/migrations/2019_04_25_140720_create_tiepdan_table.php',
+    'CreateTiepDanTable' => $baseDir . '/database/migrations/2019_04_25_140720_create_tiepdan_table.php',
+    'CreateTownsTable' => $baseDir . '/database/migrations/2019_05_02_082834_create_towns_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'CreateVuviecTable' => $baseDir . '/database/migrations/2019_04_25_140740_create_vuviec_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',

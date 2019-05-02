@@ -19,7 +19,7 @@ class CreateTiepDanTable extends Migration
             $table->string('mahuyen')->nullable();
             $table->string('mavuviectd')->nullable();
             $table->string('canbotd')->nullable();
-            $table->string('ngaythangtd')->nullable();
+            $table->date('ngaythangtd')->nullable();
             $table->string('phanloaitd')->nullable();
             $table->string('phanloaivc')->nullable();
             $table->string('hotencd')->nullable();
@@ -50,16 +50,6 @@ class CreateTiepDanTable extends Migration
             $table->string('ipf4')->nullable();
             $table->string('ipt5')->nullable();
             $table->string('ipf5')->nullable();
-            $table->string('ipt6')->nullable();
-            $table->string('ipf6')->nullable();
-            $table->string('ipt7')->nullable();
-            $table->string('ipf7')->nullable();
-            $table->string('ipt8')->nullable();
-            $table->string('ipf8')->nullable();
-            $table->string('ipt9')->nullable();
-            $table->string('ipf9')->nullable();
-            $table->string('ipt10')->nullable();
-            $table->string('ipf10')->nullable();
             $table->timestamps();
         });
     }

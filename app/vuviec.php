@@ -19,7 +19,7 @@ class vuviec extends Model
         'hanxacminh',
         'hangiaiquyet',
         'nguondon',
-        'cqcd',
+        'cqcd',// cơ quan chuyển đơn
         'plnguyendon',
         'donthu',
         'soluong',
@@ -37,15 +37,15 @@ class vuviec extends Model
         'chucvubd',
         'coquanbd',
         'pldonthu',
-        'linhvucdt',
-        'lankt',
-        'noidungdt',
+        'linhvucdt',//lĩnh vực đơn thư
+        'lankt',// lần khiếu tố
+        'noidungdt',//nội dung đơn thư
         'lydoktlan2',//lý do khiếu tố lân 2
-        'tinhchatvv',
-        'dieukientl',
+        'tinhchatvv',//tính chất vụ việc
+        'dieukientl',//điều kiện
         'vanbanqd',//văn bản quy định
         'thamquyengq',//thẩm quyền giải quyết
-        'plthamquyen',
+        'plthamquyen',// phân loại thẩm quyền
         'cqdgq', //cơ quan đã giải quyết
         'ttgq', //trình tự giải quyết
         'kqdgq',//kết quả đã giải quyết
@@ -53,8 +53,8 @@ class vuviec extends Model
         'cqgqt',//cư quan giải quyết tiếp
         'ngayhentra',
         'thuly',
-        'qdthuly',
-        'ngayqdthuly',
+        'qdthuly',//quyết định thụ lý
+        'ngayqdthuly',//ngày tháng quyết định thụ lý
         'trangthaihoso',
 
         'ipt1',

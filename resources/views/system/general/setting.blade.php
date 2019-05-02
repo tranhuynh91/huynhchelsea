@@ -41,7 +41,6 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <h4 style="text-align: center">Dịch vụ lưu trú</h4>
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
@@ -53,15 +52,30 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td><input type="checkbox" {{ (isset($setting->dvlt->dvlt) && $setting->dvlt->dvlt == 1) ? 'checked' : '' }} value="1" name="roles[dvlt][dvlt]"/></td>
-                                        <td>Dịch vụ lưu trú</td>
+                                        <td><input type="checkbox" {{ (isset($setting->congdan->index) && $setting->congdan->index == 1) ? 'checked' : '' }} value="1" name="roles[congdan][index]"/></td>
+                                        <td>Công dân</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($setting->khaisinh->index) && $setting->khaisinh->index == 1) ? 'checked' : '' }} value="1" name="roles[khaisinh][index]"/></td>
+                                        <td>Khai sinh</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($setting->khaitu->index) && $setting->khaitu->index == 1) ? 'checked' : '' }} value="1" name="roles[khaitu][index]"/></td>
+                                        <td>Khai tử</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($setting->tthonnhan->index) && $setting->tthonnhan->index == 1) ? 'checked' : '' }} value="1" name="roles[tthonnhan][index]"/></td>
+                                        <td>Tình trạng hôn nhân</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($setting->kethon->index) && $setting->kethon->index == 1) ? 'checked' : '' }} value="1" name="roles[kethon][index]"/></td>
+                                        <td>Kết hôn</td>
                                     </tr>
 
                                     </tbody>
                                 </table>
                             </div>
                             <div class="col-md-3">
-                                <h4 style="text-align: center">Dịch vụ vận tải</h4>
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
@@ -73,25 +87,28 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td><input type="checkbox" {{ (isset($setting->dvvt->vtxk) && $setting->dvvt->vtxk == 1) ? 'checked' : '' }} value="1" name="roles[dvvt][vtxk]"/></td>
-                                        <td>Vận tải xe khách</td>
+                                        <td><input type="checkbox" {{ (isset($setting->dkconnuoi->index) && $setting->dkconnuoi->index == 1) ? 'checked' : '' }} value="1" name="roles[dkconnuoi][index]"/></td>
+                                        <td>Đăng ký con nuôi</td>
                                     </tr>
                                     <tr>
-                                        <td><input type="checkbox" {{ (isset($setting->dvvt->vtxb) && $setting->dvvt->vtxb == 1) ? 'checked' : '' }} value="1" name="roles[dvvt][vtxb]"/></td>
-                                        <td>Vận tải xe buýt</td>
+                                        <td><input type="checkbox" {{ (isset($setting->dkgiamho->index) && $setting->dkgiamho->index == 1) ? 'checked' : '' }} value="1" name="roles[dkgiamho][index]"/></td>
+                                        <td>Đăng ký giám hộ</td>
                                     </tr>
                                     <tr>
-                                        <td><input type="checkbox" {{ (isset($setting->dvvt->vtxtx) && $setting->dvvt->vtxtx == 1) ? 'checked' : '' }} value="1" name="roles[dvvt][vtxtx]"/></td>
-                                        <td>Vận tải xe taxi</td>
+                                        <td><input type="checkbox" {{ (isset($setting->dknhanchamecon->index) && $setting->dknhanchamecon->index == 1) ? 'checked' : '' }} value="1" name="roles[dknhanchamecon][index]"/></td>
+                                        <td>Đăng ký nhận cha mẹ con</td>
                                     </tr>
                                     <tr>
-                                        <td><input type="checkbox" {{ (isset($setting->dvvt->vtch) && $setting->dvvt->vtch == 1) ? 'checked' : '' }} value="1" name="roles[dvvt][vtch]"/></td>
-                                        <td>Vận tải chở hàng</td>
+                                        <td><input type="checkbox" {{ (isset($setting->capbansao->index) && $setting->capbansao->index == 1) ? 'checked' : '' }} value="1" name="roles[capbansao][index]"/></td>
+                                        <td>Cấp bản sao</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" {{ (isset($setting->chungthuc->index) && $setting->chungthuc->index == 1) ? 'checked' : '' }} value="1" name="roles[chungthuc][index]"/></td>
+                                        <td>Chứng thực</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
 
                     </div>
@@ -100,13 +117,16 @@
 
             </div>
         </div>
-        <div class="row" style="text-align: center">
-            <div class="col-md-12">
-                <a href="{{url('cau_hinh_he_thong')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
-                <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Cập nhật</button>
-            </div>
+    </div>
+    <div class="row" style="text-align: center">
+        <div class="col-md-12">
+            <a href="{{url('cau_hinh_he_thong')}}" class="btn btn-danger"><i class="fa fa-reply"></i>&nbsp;Quay lại</a>
+            <button type="reset" class="btn btn-default"><i class="fa fa-refresh"></i>&nbsp;Nhập lại</button>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Cập nhật</button>
         </div>
+    </div>
+
+
         {!! Form::close() !!}
 
         <!-- BEGIN DASHBOARD STATS -->
@@ -116,4 +136,6 @@
 
 
 
+
+    </div>
 @stop

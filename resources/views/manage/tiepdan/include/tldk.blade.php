@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <div class="col-sm-8 controls">
                         @if(isset($model->ipf1))
-                            <a href="{{ url('file/doituongtx/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
+                            <a href="{{ url('file/tiepdan/'.$model->ipf1)}}" target="_blank">{{$model->ipf1}}</a>
                         @endif
                         {!!Form::file('ipf1', array('id'=>'ipf1','class' => 'passvalid'))!!}
 

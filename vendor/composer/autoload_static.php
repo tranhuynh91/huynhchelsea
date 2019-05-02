@@ -300,13 +300,15 @@ class ComposerStaticInitd7de3fb6aaadd474bf447891cb3bef8d
     );
 
     public static $classMap = array (
+        'CreateDistrictsTable' => __DIR__ . '/../..' . '/database/migrations/2019_05_02_082645_create_Districts_table.php',
         'CreateDmphanloaivvTable' => __DIR__ . '/../..' . '/database/migrations/2019_04_25_140932_create_dmphanloaivv_table.php',
         'CreateDmphongbanTable' => __DIR__ . '/../..' . '/database/migrations/2019_04_25_140808_create_dmphongban_table.php',
         'CreateDscanboTable' => __DIR__ . '/../..' . '/database/migrations/2019_04_25_140914_create_dscanbo_table.php',
         'CreateGeneralConfigsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_14_022915_create_general-configs_table.php',
-        'CreateHoagiaiTable' => __DIR__ . '/../..' . '/database/migrations/2019_04_25_140836_create_hoagiai_table.php',
+        'CreateHoagiaiTable' => __DIR__ . '/../..' . '/database/migrations/2019_05_02_084459_create_hoagiai_table.php',
         'CreateHoidonghoagiaiTable' => __DIR__ . '/../..' . '/database/migrations/2019_04_25_140850_create_hoidonghoagiai_table.php',
-        'CreateTiepdanTable' => __DIR__ . '/../..' . '/database/migrations/2019_04_25_140720_create_tiepdan_table.php',
+        'CreateTiepDanTable' => __DIR__ . '/../..' . '/database/migrations/2019_04_25_140720_create_tiepdan_table.php',
+        'CreateTownsTable' => __DIR__ . '/../..' . '/database/migrations/2019_05_02_082834_create_towns_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'CreateVuviecTable' => __DIR__ . '/../..' . '/database/migrations/2019_04_25_140740_create_vuviec_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',

@@ -43,6 +43,6 @@ class hoagiai extends Model
         'noidunghoagiailan2',
         'ketquahoagiailan2',
         'phanloaixuly',
-        'trangthaihoso',
+        'trangthai',
     ];
 }

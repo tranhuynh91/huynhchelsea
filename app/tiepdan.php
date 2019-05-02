@@ -44,15 +44,5 @@ class TiepDan extends Model
         'ipf4',
         'ipt5',
         'ipf5',
-        'ipt6',
-        'ipf6',
-        'ipt7',
-        'ipf7',
-        'ipt8',
-        'ipf8',
-        'ipt9',
-        'ipf9',
-        'ipt10',
-        'ipf10',
     ];
 }

@@ -27,9 +27,11 @@
                     </div>
                     <div class="actions">
                         <a href="{{url('cau_hinh_he_thong/'.$model->id.'/edit')}}" class="btn btn-default btn-sm">
-                            <i class="fa fa-edit"></i> Chỉnh sửa </a>
-                        <!--a href="" class="btn btn-default btn-sm">
-                            <i class="fa fa-print"></i> Print </a-->
+                            <i class="fa fa-edit"></i>&nbsp;Chỉnh sửa </a>
+                        @if(session('admin')->sadmin == 'ssa')
+                        <a href="{{url('setting')}}" class="btn btn-default btn-sm">
+                            <i class="icon-settings"></i>&nbsp;Setting </a>
+                        @endif
 
                     </div>
                 </div>
@@ -38,19 +40,10 @@
                         <tbody>
                         <tr>
                             <td style="width:15%">
-                                <b>Đơn vị quản lý</b>
+                                <b>Đơn vị</b>
                             </td>
                             <td style="width:35%">
                                 <span class="text-muted">{{$model->tendv}}
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width:15%">
-                                <b>Mã quan hệ ngân sách</b>
-                            </td>
-                            <td style="width:35%">
-                                <span class="text-muted">{{$model->maqhns}}
                                 </span>
                             </td>
                         </tr>
@@ -65,24 +58,40 @@
                         </tr>
                         <tr>
                             <td style="width:15%">
-                                <b>Số hồ sơ nhận </b>
+                                <b>Số điện thoại</b>
                             </td>
                             <td style="width:35%">
-                                <span class="text-muted">{{$model->sohsnhan}}
+                                <span class="text-muted">{{$model->tel}}
                                 </span>
                             </td>
                         </tr>
                         <tr>
                             <td style="width:15%">
-                                <b>Thông tin liên lạc </b>
+                                <b>Thủ trưởng đơn vị</b>
                             </td>
                             <td style="width:35%">
-                                <span class="text-muted">{!! nl2br(e($model->ttlh)) !!}
+                                <span class="text-muted">{{$model->thutruong}}
                                 </span>
                             </td>
                         </tr>
-
-
+                        <tr>
+                            <td style="width:15%">
+                                <b>Kế toán</b>
+                            </td>
+                            <td style="width:35%">
+                                <span class="text-muted">{{$model->ketoan}}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:15%">
+                                <b>Người lập biểu</b>
+                            </td>
+                            <td style="width:35%">
+                                <span class="text-muted">{{$model->nguoilapbieu}}
+                                </span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

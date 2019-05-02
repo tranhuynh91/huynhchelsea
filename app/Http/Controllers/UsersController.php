@@ -9,6 +9,7 @@ use App\DonViDvVt;
 use App\DonViDvVtReg;
 use App\Register;
 use App\Users;
+use App\Districts;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 
@@ -116,23 +117,6 @@ class UsersController extends Controller
         }
     }
 
-    public function checkmasothue(Request $request)
-    {
-        $input = $request->all();
-        if ($input['pl'] == 'DVLT') {
-            $model = DnDvLt::where('masothue', $input['masothue'])
-                ->first();
-        }elseif($input['pl']=='DVVT'){
-            $model = DonViDvVt::where('masothue',$input['masothue'])
-                ->first();
-        }
-        if (isset($model)) {
-            echo 'cancel';
-        } else {
-            echo 'ok';
-        }
-    }
-
     public function logout()
     {
         if (Session::has('admin')) {
@@ -143,43 +127,35 @@ class UsersController extends Controller
         }
     }
 
-    public function index($pl)
+    public function index(Request$request)
     {
         if (Session::has('admin')) {
-            if (session('admin')->level == 'T' || session('admin')->level == 'H') {
-                if ($pl == 'quan_ly')
-                    $level = 'T';
-                elseif ($pl == 'dich_vu_luu_tru')
-                    $level = 'DVLT';
-                elseif ($pl == 'dich_vu_van_tai')
-                    $level = 'DVVT';
-                if (session('admin')->sadmin == 'ssa') {
-                    $model = Users::where('level', $level)
-                        ->orderBy('id')
-                        ->get();
-                }elseif(session('admin')->sadmin == 'savt' && $pl == 'dich_vu_van_tai' || session('admin')->sadmin == 'satc' && $pl == 'dich_vu_luu_tru') {
-                    $model = Users::where('level', $level)
-                        ->where('cqcq', session('admin')->cqcq)
-                        ->orderBy('id')
-                        ->get();
-                }else{
-                    return view('errors.noperm');
-                }
-                $index_unset = 0;
-                foreach ($model as $user) {
-                    if ($user->sadmin == 'ssa') {
-                        unset($model[$index_unset]);
-                    }
-                    $index_unset++;
-                }
+            $inputs = $request->all();
+            $huyen = isset($inputs['mahuyen']) ?  $inputs['mahuyen'] : 'all';
+            $level = isset($inputs['level']) ?  $inputs['level'] : 'T' ;
 
-                return view('system.users.index')
-                    ->with('model', $model)
-                    ->with('pl', $pl)
-                    ->with('pageTitle', 'Danh sách tài khoản');
-            }else{
-                return view('errors.perm');
+
+            $users = User::where('level',$level);
+            if($level == 'T'){
+                $users = $users->where('sadmin','<>','ssa');
+            }elseif($level == 'X'){
+                $mahuyendf = Districts::first()->mahuyen;
+                $huyen = isset($inputs['mahuyen']) ?  $inputs['mahuyen'] : $mahuyendf;
+                $users = $users->where('mahuyen', $huyen);
             }
+
+            $model = $users->get();
+
+
+
+            $listhuyen = Districts::all();
+
+            return view('system.users.index')
+                ->with('model', $model)
+                ->with('listhuyen',$listhuyen)
+                ->with('level', $level)
+                ->with('mahuyen',$huyen)
+                ->with('pageTitle', 'Danh sách tài khoản');
 
         } else {
             return view('errors.notlogin');
@@ -497,113 +473,6 @@ class UsersController extends Controller
 
         } else
             return view('errors.notlogin');
-    }
-
-    public function registerdvvt(Request $request){
-        if (Session::has('admin')) {
-            $input = $request->all();
-            $id = $input['idregister'];
-            if(session('admin')->sadmin == 'ssa' || $model->cqcq == session('admin')->cqcq ) {
-                $model = Register::findOrFail($id);
-                $modeldn = new DonViDvVt();
-                $modeldn->tendonvi = $model->tendn;
-                $modeldn->masothue = $model->masothue;
-                $modeldn->dienthoai = $model->tel;
-                $modeldn->fax = $model->fax;
-                $modeldn->email = $model->email;
-                $modeldn->diachi = $model->diachi;
-                $modeldn->dknopthue = $model->noidknopthue;
-                $modeldn->tailieu = $model->tailieu;
-                $modeldn->giayphepkd = $model->giayphepkd;
-                $modeldn->setting = $model->setting;
-                $modeldn->dvxk = $model->dvxk;
-                $modeldn->dvxb = $model->dvxb;
-                $modeldn->dvxtx = $model->dvxtx;
-                $modeldn->dvk = $model->dvk;
-                $modeldn->toado = $model->diachi != '' ? getAddMap($model->diachi) : '';
-                $modeldn->trangthai = 'Kích hoạt';
-                $modeldn->cqcq = $model->cqcq;
-
-                if ($modeldn->save()) {
-                    $modeluser = new Users();
-                    $modeluser->name = $model->tendn;
-                    $modeluser->username = $model->username;
-                    $modeluser->password = $model->password;
-                    $modeluser->phone = $model->tel;
-                    $modeluser->email = $model->email;
-                    $modeluser->status = 'Kích hoạt';
-                    $modeluser->mahuyen = $model->masothue;
-                    $modeluser->level = 'DVVT';
-                    $modeluser->cqcq = $model->cqcq;
-                    $modeluser->save();
-                }
-                $delete = Register::findOrFail($id)->delete();
-                return redirect('users/register/pl=dich_vu_van_tai');
-            }else{
-                return view('errors.noperm');
-            }
-
-        } else
-            return view('errors.notlogin');
-    }
-
-    public function registerdelete(Request $request){
-        if (Session::has('admin')) {
-            $input = $request->all();
-            $id = $input['iddelete'];
-            $model = Register::findOrFail($id);
-            $pl = $model->pl;
-            if($pl == 'DVLT')
-                $dv = 'dich_vu_luu_tru';
-            elseif($pl == 'DVVT')
-                $dv = 'dich_vu_van_tai';
-            $model->delete();
-
-            return redirect('users/register/pl='.$dv);
-        } else
-            return view('errors.notlogin');
-    }
-
-    public function prints($pl){
-        if (Session::has('admin')) {
-            if($pl == 'dich_vu_luu_tru') {
-                $model = Users::where('level', 'DVLT')
-                    ->get();
-                $dv = 'LƯU TRÚ';
-            }elseif($pl == 'dich_vu_van_tai'){
-                $model = Users::where('level','DVVT')
-                    ->get();
-                $dv = 'VẬN TẢI';
-            }
-            return view('reports/user/users')
-                ->with('model',$model)
-                ->with('dv',$dv)
-                ->with('pageTitle','Danh sách tài khoản truy cập');
-        } else
-            return view('errors.notlogin');
-    }
-
-    public function registeredit($id){
-        if (Session::has('admin')) {
-            $model = Register::findOrFail($id);
-            if ($model->pl == 'DVLT') {
-                $cqcq = DmDvQl::where('plql','TC')
-                    ->get();
-                return view('system.users.register.editdvlt')
-                    ->with('model', $model)
-                    ->with('cqcq',$cqcq)
-                    ->with('pageTitle', 'Chỉnh sửa thông tin đăng ký tài khoản dịch vụ lưu trú');
-            } elseif ($model->pl == 'DVVT') {
-                $cqcq = DmDvQl::where('plql','VT')
-                    ->get();
-                return view('system.users.register.editdvvt')
-                    ->with('model', $model)
-                    ->with('cqcq',$cqcq)
-                    ->with('pageTitle', 'Chỉnh sửa thông tin đăng ký tài khoản dịch vụ vận tải');
-            }
-        } else {
-            return view('errors.notlogin');
-        }
     }
 
     public function registerdvltupdate($id, Request $request){

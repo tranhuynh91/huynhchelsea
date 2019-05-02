@@ -22,6 +22,7 @@
         function getId(id){
             document.getElementById("iddelete").value=id;
         }
+
         function ClickDelete(){
             $('#frm_delete').submit();
         }
@@ -29,51 +30,50 @@
 @stop
 
 @section('content')
-
     <h3 class="page-title">
-        Cấu hình hệ thống đơn vị<small>&nbsp;quản lý</small>
+        Danh mục<small>&nbsp;phòng ban</small>
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
         <div class="col-md-12">
             <!-- BEGIN EXAMPLE TABLE PORTLET-->
             <div class="portlet box">
+
                 <div class="portlet-title">
+                    <div class="caption">
+                    </div>
                     <div class="actions">
-                        <a href="{{url('cau_hinh_he_thong/create')}}" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Thêm mới </a>
-                            <a href="{{url('setting')}}" class="btn btn-default btn-sm">
-                                <i class="icon-settings"></i> Setting</a>
+                        <a href="{{url('dmphongban/create')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-plus"></i>&nbsp;Thêm mới</a>
                     </div>
                 </div>
-                <div class="portlet-body">
-                    <div class="portlet-body">
+                        </div>
                     <table class="table table-striped table-bordered table-hover" id="sample_3">
                         <thead>
                         <tr>
                             <th style="text-align: center" width="2%">STT</th>
-                            <th style="text-align: center" width="30%">Tên đơn vị</th>
-                            <th style="text-align: center">Mã quan hệ ngân sách</th>
-                            <th style="text-align: center">Phân loại quản lý</th>
-                            <th style="text-align: center" width="30%">Địa chỉ</th>
-                            <th style="text-align: center" width="20%">Thao tác</th>
+                            <th style="text-align: center" width="20%">Tên phòng ban</th>
+                            <th style="text-align: center" width="20%">Địa chỉ phòng ban</th>
+                            <th style="text-align: center" width="5%">Tên đơn vị</th>
+                            <th style="text-align: center" width="15%">Thao tác</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($model as $key=>$tt)
-                        <tr class="odd gradeX">
-                            <td style="text-align: center">{{$key + 1}}</td>
-                            <td class="active" >{{$tt->tendv}}</td>
-                            <td>{{$tt->maqhns}}</td>
-                            <td style="text-align: center">{{$tt->plql}}</td>
-                            <td>{{$tt->diachi}}</td>
-                            <td>
-                                <a href="{{url('cau_hinh_he_thong/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                    Xóa</button>
-                            </td>
-                        </tr>
+                            <tr>
+
+                                <td style="text-align: center">{{$key+1}}</td>
+                                <td class="active">{{$tt->tenphongban}}</td>
+                                <td class="active">{{$tt->diachiphongban}}</td>
+                                <td style="text-align: center">{{$tt->tendv}}</td>
+                                <td>
+                                    <a href="{{url('dmphongban/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                    <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
+                                        Xóa</button>
+                                </td>
+
+                            </tr>
                         @endforeach
+
                         </tbody>
                     </table>
                 </div>
@@ -89,7 +89,7 @@
         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    {!! Form::open(['url'=>'danh_muc_don_vi_quan_ly/delete','id' => 'frm_delete'])!!}
+                    {!! Form::open(['url'=>'sohotich/delete','id' => 'frm_delete'])!!}
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Đồng ý xóa?</h4>
@@ -107,6 +107,33 @@
         </div>
     </div>
 
+    <script>
+        $(function(){
+
+            $('#select_nam,#select_huyen, #select_xa').change(function() {
+                var current_path_url = '/dmphongban?';
+                var nam = '&nam='+$('#select_nam').val();
+                if($(this).attr('id') == 'select_huyen'){
+                    $('#select_xa').val('all');
+                }
+                var maxa = '';
+                if($('#select_xa').length > 0 ){
+                    var maxa = '&maxa='+$('#select_xa').val();
+                }
+                var mahuyen = '';
+                if($('#select_huyen').length > 0 ){
+                    var mahuyen = '&mahuyen='+$('#select_huyen').val();
+                }
+                var url = current_path_url+nam+mahuyen+maxa;
+                window.location.href = url;
+            });
+        })
+
+
+    </script>
+
+
+    @include('includes.e.modal-confirm')
 
 
 @stop

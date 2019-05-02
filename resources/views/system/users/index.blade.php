@@ -59,25 +59,7 @@
         function getId(id){
             document.getElementById("iddelete").value=id;
         }
-        $(function(){
 
-            $('#phanloai').change(function() {
-                var pl = $('#phanloai').val();
-                var url = '/users/pl='+pl;
-
-                //var url = current_path_url;
-                window.location.href = url;
-            });
-            $('#dvct').change(function() {
-                var dvct = $('#dvct').val();
-                var url = '/users/pl=su-dung/dv='+dvct;
-
-                //var url = current_path_url;
-                window.location.href = url;
-            });
-
-
-        })
         function ClickDelete(){
             $('#frm_delete').submit();
         }
@@ -85,16 +67,8 @@
 @stop
 
 @section('content')
-        <?php
-            if($pl == 'dich_vu_luu_tru')
-                $dv = 'dịch vụ lưu trú';
-            elseif($pl == 'dich_vu_van_tai')
-                $dv = 'dịch vụ vận tải';
-            else
-                $dv='';
-        ?>
     <h3 class="page-title">
-        Quản lý tài khoản <small>&nbsp;{{$dv}}</small>
+        Quản lý tài khoản <small>&nbsp;sử dụng</small>
     </h3>
     <!-- END PAGE HEADER-->
     <div class="row">
@@ -110,87 +84,96 @@
                             Khóa</button>
                         <button id="btnMultiUnLockUser" type="button" onclick="multiUnLock()" class="btn btn-default btn-sm" data-target="#unlockuser-modal-confirm" data-toggle="modal"><i class="fa fa-unlock"></i>&nbsp;
                             Mở khóa</button>
-                        @if($pl != 'quan_ly')
-                        <a href="{{url('users/print/pl='.$pl)}}" class="btn btn-default btn-sm" target="_blank">
-                            <i class="fa fa-print"></i> Print </a>
-                        @endif
+                        <!--a href="{{url('users/print/level='.$level)}}" class="btn btn-default btn-sm" target="_blank">
+                            <i class="fa fa-print"></i> Print </a-->
                     </div>
 
                 </div>
 
                 <div class="portlet-body">
-                    @if(session('admin')->sadmin == 'ssa')
-                        <div class="row">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <select class="form-control" name="select_level" id="select_level">
+                                    <option value="T" {{($level == 'T') ? 'selected' : ''}}>Cấp tỉnh</option>
+                                    <option value="H" {{($level == 'H') ? 'selected' : ''}}>Cấp quận/huyện</option>
+                                    <option value="X" {{($level == 'X') ? 'selected' : ''}}>Cấp xã/phường</option>
+                                </select>
+                            </div>
+                        </div>
+                        @if($level == 'X')
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <select class="form-control" name="phanloai" id="phanloai">
-                                        <option value="quan_ly" {{($pl == "quan_ly") ? 'selected' : ''}}>Cấp Quản lý</option>
-                                        <option value="dich_vu_luu_tru" {{($pl == "dich_vu_luu_tru") ? 'selected' : ''}}>Dịch vụ lưu trú</option>
-                                        <option value="dich_vu_van_tai" {{($pl == "dich_vu_van_tai") ? 'selected' : ''}}>Dịch vụ vận tải</option>
+                                    <select class="form-control" name="select_huyen" id="select_huyen">
+                                        <option value="all">--Chọn quận huyện--</option>
+                                        @foreach ($listhuyen as $huyen)
+                                            <option {{ ($huyen->mahuyen == $mahuyen) ? 'selected' : '' }} value="{{ $huyen->mahuyen }}">{{ $huyen->tenhuyen }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                    @endif
+                        @endif
+
+                    </div>
                     <div class="portlet-body">
                         <div class="table-toolbar">
 
                         </div>
-                    <table class="table table-striped table-bordered table-hover" id="sample_3">
-                        <thead>
-                        <tr>
-                            <th class="table-checkbox">
-                                <input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes"/>
-                            </th>
-                            <th style="text-align: center" width="2%">STT</th>
-                            <th style="text-align: center">Tên tài khoản</th>
-                            <th style="text-align: center">Username</th>
-                            <th style="text-align: center">Tel</th>
-                            <th style="text-align: center">Email</th>
-                            <th style="text-align: center" width="5%">Trạng thái</th>
-                            <th style="text-align: center" width="25%">Thao tác</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($model as $key=>$tt)
-                        <tr class="odd gradeX">
-                            <td>
-                                <input type="checkbox" class="checkboxes" value="{{$tt->id}}" name="ck_value" id="ck_value"/>
-                            </td>
-                            <td style="text-align: center">{{$key + 1}}</td>
-                            <td>{{$tt->name}}</td>
-                            <td class="active">{{$tt->username}}</td>
-                            <td>{{$tt->phone}}</td>
-                            <td>{{$tt->email}}</td>
-                            <td style="text-align: center">
-                                @if($tt->status == 'Kích hoạt')
-                                    <span class="label label-sm label-success">{{$tt->status}}</span>
-                                @else
-                                    <span class="label label-sm label-danger">{{$tt->status}}</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="{{url('users/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
-                                @if($tt->sadmin != 'satc' && $tt->sadmin != 'savt')
-                                    <a href="{{url('users/'.$tt->id.'/phan-quyen')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-cogs"></i>&nbsp;Phân quyền</a>
-                                @endif
-                                <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
-                                    Xóa</button>
-                            </td>
-                        </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                        <table class="table table-striped table-bordered table-hover" id="sample_3">
+                            <thead>
+                            <tr>
+                                <th class="table-checkbox">
+                                    <input type="checkbox" class="group-checkable" data-set="#sample_3 .checkboxes"/>
+                                </th>
+                                <th style="text-align: center" width="2%">STT</th>
+                                <th style="text-align: center">Tên tài khoản</th>
+                                <th style="text-align: center">Username</th>
+                                <th style="text-align: center">Tel</th>
+                                <th style="text-align: center">Email</th>
+                                <th style="text-align: center" width="5%">Trạng thái</th>
+                                <th style="text-align: center" width="25%">Thao tác</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($model as $key=>$tt)
+                                <tr class="odd gradeX">
+                                    <td>
+                                        <input type="checkbox" class="checkboxes" value="{{$tt->id}}" name="ck_value" id="ck_value"/>
+                                    </td>
+                                    <td style="text-align: center">{{$key + 1}}</td>
+                                    <td>{{$tt->name}}</td>
+                                    <td class="active">{{$tt->username}}</td>
+                                    <td>{{$tt->phone}}</td>
+                                    <td>{{$tt->email}}</td>
+                                    <td style="text-align: center">
+                                        @if($tt->status == 'Kích hoạt')
+                                            <span class="label label-sm label-success">{{$tt->status}}</span>
+                                        @else
+                                            <span class="label label-sm label-danger">{{$tt->status}}</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{url('users/'.$tt->id.'/edit')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-edit"></i>&nbsp;Chỉnh sửa</a>
+                                        @if($tt->sadmin != 'sa')
+                                            <a href="{{url('users/'.$tt->id.'/permission')}}" class="btn btn-default btn-xs mbs"><i class="fa fa-cogs"></i>&nbsp;Phân quyền</a>
+                                        @endif
+                                        <button type="button" onclick="getId('{{$tt->id}}')" class="btn btn-default btn-xs mbs" data-target="#delete-modal" data-toggle="modal"><i class="fa fa-trash-o"></i>&nbsp;
+                                            Xóa</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
             </div>
-            <!-- END EXAMPLE TABLE PORTLET-->
         </div>
-    </div>
 
-    <!-- BEGIN DASHBOARD STATS -->
+        <!-- BEGIN DASHBOARD STATS -->
 
-    <!-- END DASHBOARD STATS -->
-    <div class="clearfix"></div>
+        <!-- END DASHBOARD STATS -->
+        <div class="clearfix"></div>
         <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -211,6 +194,26 @@
             <!-- /.modal-dialog -->
         </div>
     </div>
+
+    <script>
+        $(function(){
+            $('#select_level, #select_huyen').change(function() {
+                var current_path_url = '/users?';
+                var level = '&level='+$('#select_level').val();
+                if($(this).attr('id') == 'select_level'){
+                    $('#select_huyen').val('all');
+                }
+                var mahuyen = '';
+                if($('#select_huyen').length > 0 ){
+                    var mahuyen = '&mahuyen='+$('#select_huyen').val();
+                }
+                var url = current_path_url+level+mahuyen;
+                window.location.href = url;
+            });
+        })
+
+
+    </script>
 
     @include('includes.e.modal-confirm')
 

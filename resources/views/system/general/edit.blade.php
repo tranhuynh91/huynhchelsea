@@ -32,10 +32,15 @@
                     <meta name="csrf-token" content="{{ csrf_token() }}" />
                     <div class="form-body">
                         <div class="row">
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Mã quan hệ ngân sách</label>
+                                    @if(session('admin')->sadmin == 'ssa')
                                     {!!Form::text('maqhns', null, array('id' => 'maqhns','class' => 'form-control'))!!}
+                                    @else
+                                    {{$model->maqhns}}
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -45,28 +50,7 @@
                                 </div>
                             </div>
                         </div>
-                        @if(session('admin')->sadmin == 'ssa')
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Phân loại quản lý</label>
-                                    <select class="form-control" name="plql" id="plql">
-                                        <option value="TC" {{($model->plql == 'TC' ? 'selected' : '')}}>Tài Chính</option>
-                                        <option value="VT" {{($model->plql == 'VT' ? 'selected' : '')}}>Vận Tải</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="control-label">Cấp đơn vị</label>
-                                    <select class="form-control" name="level" id="level">
-                                        <option value="T" {{($model->level == 'T' ? 'selected' : '')}}>Cấp Tỉnh</option>
-                                        <option value="H" {{($model->level == 'H' ? 'selected' : '')}}>Cấp quận huyện</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -76,17 +60,31 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Số hồ sơ đã nhận</label>
-                                    {!!Form::text('sohsnhan', null, array('id' => 'sohsnhan','class' => 'form-control','data-mask'=>'fdecimal','style'=>'text-align: right'))!!}
+                                    <label class="control-label">Số điện thoại<span class="require">*</span></label>
+                                    {!!Form::text('tel', null, array('id' => 'tel','class' => 'form-control required'))!!}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Thủ trưởng đơn vịỉ<span class="require">*</span></label>
+                                    {!!Form::text('thutruong', null, array('id' => 'thutruong','class' => 'form-control required'))!!}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Kế toán<span class="require">*</span></label>
+                                    {!!Form::text('ketoan', null, array('id' => 'ketoan','class' => 'form-control required'))!!}
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Thông tin liên hệ </label>
-                                        <textarea id="ttlh" class="form-control" name="ttlh" cols="10" rows="5"
-                                                  placeholder="Thông tin, số điện thoại liên lạc với các bộ phận">{{$model->ttlh}}</textarea>
+                                    <label class="control-label">Người lập biểu<span class="require">*</span></label>
+                                    {!!Form::text('nguoilapbieu', null, array('id' => 'nguoilapbieu','class' => 'form-control required'))!!}
                                 </div>
                             </div>
                         </div>
@@ -110,37 +108,13 @@
 
             var validator = $("#update_tttaikhoan").validate({
                 rules: {
-                    name :"required",
+                    name :"required"
                 },
                 messages: {
-                    name :"Chưa nhập dữ liệu",
+                    name :"Chưa nhập dữ liệu"
                 }
             });
         }
-    </script>
-    <script>
-        jQuery(document).ready(function($) {
-            $('input[name="maqhns"]').blur(function(){
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    type: 'GET',
-                    url: '/checkmaqhns',
-                    data: {
-                        _token: CSRF_TOKEN,
-                        maqhns:$(this).val()
-                    },
-                    success: function (respond) {
-                        if(respond != 'ok'){
-                            toastr.error("Bạn cần nhập lại mã quan hệ ngân sách", "Mã quan hệ ngân sách nhập vào đã tồn tại!!!");
-                            $('input[name="maqhns"]').val('');
-                            $('input[name="maqhns"]').focus();
-                        }else
-                            toastr.success("Mã quan hệ ngân sách sử dụng được!", "Thành công!");
-                    }
-
-                });
-            })
-        }(jQuery));
     </script>
     @include('includes.script.create-header-scripts')
 @stop

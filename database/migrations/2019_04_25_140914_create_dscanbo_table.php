@@ -15,11 +15,12 @@ class CreateDscanboTable extends Migration
     {
         Schema::create('dscanbo', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tencb')->nullable();
             $table->string('macb')->nullable();
+            $table->string('tencb')->nullable();
             $table->string('chucvu')->nullable();
             $table->string('phongban')->nullable();
             $table->string('nhiemvu')->nullable();
+            $table->string('capql')->nullable();
             $table->string('tkql')->nullable();
             $table->string('maxa')->nullable();
             $table->string('mahuyen')->nullable();

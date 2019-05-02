@@ -312,9 +312,10 @@ License: You must have a valid license purchased only from themeforest(the above
                     </a>
                     <ul class="sub-menu">
                         @if(session('admin')->level == 'T' || session('admin')->level == 'H')
-                            <li><a href="{{url('users/pl=quan_ly')}}"> Quản lý tài khoản</a></li>
-                            <li><a href="{{url('users/register/pl=dich_vu_luu_tru')}}"> Tài khoản đăng ký DVLT</a></li>
-                            <li><a href="{{url('users/register/pl=dich_vu_van_tai')}}"> Tài khoản đăng ký DVVT</a></li>
+                            <li><a href="{{url('dscanbo')}}"> Danh sách cán bộ</a></li>
+                            <li><a href="{{url('dmphongban')}}"> Danh sách phòng ban</a></li>
+                            <li><a href="{{url('districts')}}"> Thông quận huyện</a></li>
+                            <li><a href="{{url('towns')}}"> Thông tin xã phường</a></li>
                             <li><a href="{{url('cau_hinh_he_thong')}}">Cấu hình hệ thống</a></li>
                         @endif
                     </ul>

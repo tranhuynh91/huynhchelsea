@@ -76,6 +76,15 @@ Route::post('danh_muc_don_vi_quan_ly/delete','DmDvQlController@delete');
 //End DS đơn vị quản lý
 // </editor-fold>//End Setting
 
+//Thông tin quận/huyện
+Route::resource('districts','DistrictsController');
+Route::post('districts/delete','DistrictsController@destroy');
+//End Thông tin quận/huyện
+//Thông tin xã phường
+Route::resource('towns','TownsController');
+Route::post('towns/delete','TownsController@destroy');
+//End Thông tin xã phường
+
 // <editor-fold defaultstate="collapsed" desc="--Quản lý--">
 
     //Dịch vụ luu trú
@@ -157,12 +166,14 @@ Route::get('ke_khai_dich_vu_luu_tru/report_ke_khai/{mahs}','ReportsController@kk
 
 //Tiếp dân
 
-Route::resource('tiepdan','TiepDanController@index');
-Route::get('tiepdan/create','TiepDanController@create');
-Route::post('tiepdan/store','TiepDanController@store');
-Route::get('tiepdan/{id}/store','TiepDanController@edit');
-Route::patch('tiepdan/{id}/update','TiepDanController@update');
+Route::resource('tiepdan','TiepDanController@');
 Route::post('tiepdan/delete','TiepDanController@destroy');
 
 //vụ việc
 Route::resource('vuviec','VuviecController@index');
+
+//danh sách cán bộ
+Route::resource('dscanbo','DscanboController');
+
+// danh sách phòng ban
+Route::resource('dmphongban','DmphongbanController');
